@@ -18,8 +18,8 @@ class AnalyticsService {
       itemListName: itemListName,
       items: analyticsItems,
     );
-    print(
-        "view_item_list event logged with itemListId: $itemListId and itemListName: $itemListName");
+    // print(
+    //     "view_item_list event logged with itemListId: $itemListId and itemListName: $itemListName");
   }
 
   Future<void> logSelectItemEvent(CustomAnalyticsEventItem item) async {
@@ -27,7 +27,7 @@ class AnalyticsService {
     await _analytics.logSelectItem(
       items: [item],
     );
-    print("view_item event logged to Firebase for item: ${item.itemName}");
+    // print("view_item event logged to Firebase for item: ${item.itemName}");
   }
 
   Future<void> logViewItemEvent(CustomAnalyticsEventItem item) async {
@@ -35,7 +35,7 @@ class AnalyticsService {
     await _analytics.logViewItem(
       items: [item],
     );
-    print("view_item event logged to Firebase for item: ${item.itemName}");
+    // print("view_item event logged to Firebase for item: ${item.itemName}");
   }
 
   Future<void> logAddToCartEvent(CustomAnalyticsEventItem item) async {
@@ -43,15 +43,15 @@ class AnalyticsService {
     await _analytics.logAddToCart(
       items: [item],
     );
-    print("view_item event logged to Firebase for item: ${item.itemName}");
+    // print("view_item event logged to Firebase for item: ${item.itemName}");
   }
 
   Future<void> logRemoveFromCartEvent(CustomAnalyticsEventItem item) async {
     // Log a single view_item event
-    await _analytics.logAddToCart(
+    await _analytics.logRemoveFromCart(
       items: [item],
     );
-    print("view_item event logged to Firebase for item: ${item.itemName}");
+    // print("view_item event logged to Firebase for item: ${item.itemName}");
   }
 
   Future<void> logViewCartEvent(Map<String, dynamic> apiResponse) async {
@@ -69,7 +69,7 @@ class AnalyticsService {
               (sum ?? 0) + (item.price ?? 0.0)), // Sum of item prices
       items: analyticsItems,
     );
-    print("view_cart event logged with ${items.length} items");
+    // print("view_cart event logged with ${items.length} items");
   }
 
   Future<void> logBeginCheckoutEvent(Map<String, dynamic> apiResponse) async {
@@ -87,7 +87,7 @@ class AnalyticsService {
               (sum ?? 0) + (item.price ?? 0.0)), // Sum of item prices
       items: analyticsItems,
     );
-    print("begin_checkout event logged with ${items.length} items");
+    // print("begin_checkout event logged with ${items.length} items");
   }
 
   Future<void> logAddShippingInfoEvent(Map<String, dynamic> apiResponse) async {
@@ -106,7 +106,7 @@ class AnalyticsService {
       shippingTier: "Ground", // Example shipping tier
       items: analyticsItems,
     );
-    print("add_shipping_info event logged with ${items.length} items");
+    // print("add_shipping_info event logged with ${items.length} items");
   }
 
   Future<void> logAddPaymentInfoEvent(Map<String, dynamic> apiResponse) async {
@@ -125,7 +125,7 @@ class AnalyticsService {
       paymentType: "Credit Card", // Example payment type
       items: analyticsItems,
     );
-    print("add_payment_info event logged with ${items.length} items");
+    // print("add_payment_info event logged with ${items.length} items");
   }
 
   Future<void> logPurchaseEvent(Map<String, dynamic> purchaseData) async {
@@ -145,7 +145,7 @@ class AnalyticsService {
       currency: "USD", // Use default or dynamic currency
       items: analyticsItems,
     );
-    print(
-        "purchase event logged with transactionId: $transactionId and ${items.length} items");
+    // print(
+    //     "purchase event logged with transactionId: $transactionId and ${items.length} items");
   }
 }
