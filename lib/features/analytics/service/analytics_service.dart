@@ -1,5 +1,5 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
-import '../models/CustomAnalyticsEventItem.dart';
+import '../models/AnalyticsEventItems_model.dart';
 
 class AnalyticsService {
   final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;

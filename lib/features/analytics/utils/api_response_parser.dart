@@ -1,5 +1,5 @@
 import 'dart:convert';
-import '../models/CustomAnalyticsEventItem.dart';
+import '../models/AnalyticsEventItems_model.dart';
 import '../data/item_list_mock.dart';
 import '../data/cart_items_mock.dart';
 import '../data/single_item_mock.dart';
