@@ -34,18 +34,48 @@ class CustomAnalyticsEventItem extends AnalyticsEventItem {
 
     // Optional parameters for custom fields
     Map<String, Object>? parameters, // Additional parameters
-    this.customParameters =
-        const {}, // Custom parameters (default to empty map)
+    this.customParameters = const {}, // Default to empty map if not provided
   }) : super(
           parameters: {
-            ...?parameters, // Include existing parameters if not null
-            ...customParameters, // Merge in custom parameters
+            ...?parameters, // Include base parameters if provided
+            ...customParameters, // Merge custom parameters with existing ones
           },
         );
 
+  // Convert to a Map for serialization or use in logging events
+  Map<String, dynamic> toMap() {
+    return {
+      'item_id': itemId,
+      'item_name': itemName,
+      'item_category': itemCategory,
+      'item_category2': itemCategory2,
+      'item_category3': itemCategory3,
+      'item_category4': itemCategory4,
+      'item_category5': itemCategory5,
+      'item_brand': itemBrand,
+      'item_variant': itemVariant,
+      'item_list_id': itemListId,
+      'item_list_name': itemListName,
+      'affiliation': affiliation,
+      'price': price,
+      'currency': currency,
+      'quantity': quantity,
+      'coupon': coupon,
+      'discount': discount,
+      'promotion_id': promotionId,
+      'promotion_name': promotionName,
+      'creative_name': creativeName,
+      'creative_slot': creativeSlot,
+      'index': index,
+      'location_id': locationId,
+      // Include custom parameters (ensuring supported types)
+      ...customParameters,
+    }..removeWhere((key, value) => value == null); // Remove null values
+  }
+
   // Factory constructor to create an instance from JSON
   factory CustomAnalyticsEventItem.fromJson(Map<String, dynamic> json) {
-    // Extract known parameters (fields that match superclass fields)
+    // Extract known parameters (those supported by the base class)
     final extractedKnownParameters = {
       'affiliation': json['affiliation'],
       'currency': json['currency'],
@@ -66,8 +96,7 @@ class CustomAnalyticsEventItem extends AnalyticsEventItem {
       'itemName': json['itemName'],
       'itemVariant': json['itemVariant'],
       'locationId': json['locationId'],
-      'price':
-          (json['price'] as num?)?.toDouble(), // Convert to double if present
+      'price': (json['price'] as num?)?.toDouble(), // Ensure double conversion
       'promotionId': json['promotionId'],
       'promotionName': json['promotionName'],
       'quantity': json['quantity'],
@@ -77,7 +106,7 @@ class CustomAnalyticsEventItem extends AnalyticsEventItem {
     final customParameters = Map<String, Object>.from(json)
       ..removeWhere((key, value) => extractedKnownParameters.containsKey(key));
 
-    // Create an instance of CustomAnalyticsEventItem
+    // Return the constructed instance
     return CustomAnalyticsEventItem(
       itemId: json['itemId'],
       itemName: json['itemName'],

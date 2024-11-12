@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../services/event_handler_service.dart';
+import '../../../services/event_handler_service.dart';
+import 'package:test_firebase_app/screens/plp/ui/product_list_page.dart'; // Import the product list screen
 
 class EventButtonsWidget extends StatefulWidget {
   const EventButtonsWidget({super.key});
@@ -13,7 +14,19 @@ class _EventButtonsWidgetState extends State<EventButtonsWidget> {
 
   // Using async to await event handling completion if necessary
   Future<void> _onButtonPressed(String eventName) async {
-    await _eventHandlerService.handleEvent(eventName);
+    if (eventName == "view_item_list") {
+      // Navigate to the Product List screen when the button is pressed
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) =>
+                ProductListPage()), // Navigates to the product list page
+      );
+      // await _eventHandlerService.handleEvent(eventName);
+    } else {
+      // Handle other events (like screen_view, select_item, etc.)
+      await _eventHandlerService.handleEvent(eventName);
+    }
   }
 
   @override
@@ -25,6 +38,14 @@ class _EventButtonsWidgetState extends State<EventButtonsWidget> {
           ElevatedButton(
             onPressed: () => _onButtonPressed("screen_view"),
             child: const Text("screen_view"),
+          ),
+          ElevatedButton(
+            onPressed: () => _onButtonPressed("set_user_id"),
+            child: const Text("set_user_id"),
+          ),
+          ElevatedButton(
+            onPressed: () => _onButtonPressed("set_user_property"),
+            child: const Text("set_user_property"),
           ),
           ElevatedButton(
             onPressed: () => _onButtonPressed("view_item_list"),

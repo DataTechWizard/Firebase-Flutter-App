@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'features/main_screen/ui/event_buttons_widget.dart'; // Import the refactored widget
+import 'screens/main_screen/ui/event_buttons_widget.dart'; // Import the refactored widget
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

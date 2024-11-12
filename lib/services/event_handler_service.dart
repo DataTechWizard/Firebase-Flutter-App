@@ -11,8 +11,14 @@ class EventHandlerService {
       case "screen_view":
         await _logScreenView();
         break;
+      case "set_user_id":
+        await _logSetUerId();
+        break;
+      case "set_user_property":
+        await _logSetUserProperty();
+        break;
       case "view_item_list":
-        await _logViewItemList();
+        //await _logViewItemList();
         break;
       case "select_item":
         await _logSelectItem();
@@ -64,11 +70,32 @@ class EventHandlerService {
     print("Screen view logged to Firebase for HomePage");
   }
 
-  Future<void> _logViewItemList() async {
-    final apiResponse = parseItemListApiResponse();
-    _analyticsService.logViewItemListEvent(apiResponse);
-    print("logViewItemListEvent event logged to Firebase with items");
+  Future<void> _logSetUserProperty() async {
+    await _analytics.setUserProperty(
+      name: 'preferred_language',
+      value: 'English',
+    );
+    await _analytics.setUserProperty(
+      name: 'subscription_status',
+      value: 'premium',
+    );
+    await _analytics.setUserProperty(
+      name: 'favorite_category',
+      value: 'Technology',
+    );
   }
+
+  Future<void> _logSetUerId() async {
+// After user login
+    await _analytics.setUserId(id: '123456');
+    print("User ID set to 123456");
+  }
+
+  // Future<void> _logViewItemList() async {
+  //   final apiResponse = parseItemListApiResponse();
+  //   _analyticsService.logViewItemListEvent(apiResponse);
+  //   print("logViewItemListEvent event logged to Firebase with items");
+  // }
 
   Future<void> _logSelectItem() async {
     final item = parseSingleItemApiResponse();

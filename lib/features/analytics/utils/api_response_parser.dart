@@ -1,6 +1,6 @@
 import 'dart:convert';
-import '../models/AnalyticsEventItems_model.dart';
-import '../data/item_list_mock.dart';
+import '../models/firebase_item_scoped_data_model.dart';
+//import '../data/item_list_mock.dart';
 import '../data/cart_items_mock.dart';
 import '../data/single_item_mock.dart';
 import '../data/purchase_data_mock.dart';
@@ -28,19 +28,19 @@ Map<String, dynamic> parseCartApiResponse() {
   };
 }
 
-// Ensure this function uses itemListApiResponse
-Map<String, dynamic> parseItemListApiResponse() {
-  final Map<String, dynamic> jsonData =
-      json.decode(itemListApiResponse); // Uses itemListApiResponse
-  final List<dynamic> itemsJson = jsonData['items'];
-  final items =
-      itemsJson.map((item) => CustomAnalyticsEventItem.fromJson(item)).toList();
-  return {
-    'itemListId': jsonData['itemListId'],
-    'itemListName': jsonData['itemListName'],
-    'items': items,
-  };
-}
+// // Ensure this function uses itemListApiResponse
+// Map<String, dynamic> parseItemListApiResponse() {
+//   final Map<String, dynamic> jsonData =
+//       json.decode(itemListApiResponse); // Uses itemListApiResponse
+//   final List<dynamic> itemsJson = jsonData['items'];
+//   final items =
+//       itemsJson.map((item) => CustomAnalyticsEventItem.fromJson(item)).toList();
+//   return {
+//     'itemListId': jsonData['itemListId'],
+//     'itemListName': jsonData['itemListName'],
+//     'items': items,
+//   };
+// }
 
 // Function to parse the single item API response and return a CustomAnalyticsEventItem
 CustomAnalyticsEventItem parseSingleItemApiResponse() {
