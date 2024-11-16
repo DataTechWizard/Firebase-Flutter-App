@@ -1,7 +1,9 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import '../models/product_model.dart';
+import 'package:injectable/injectable.dart';
 
+@lazySingleton
 class ProductServiceApi {
   final String apiUrl = 'http://x.x.x.x:8181/products'; //Can Use Wiremock
 

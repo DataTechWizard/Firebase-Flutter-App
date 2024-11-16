@@ -1,5 +1,7 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:injectable/injectable.dart';
 
+@lazySingleton
 class GAJourneyAnalyticsEvents {
   final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
 

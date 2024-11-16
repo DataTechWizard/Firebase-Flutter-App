@@ -1,20 +1,27 @@
 import 'package:flutter/material.dart';
-import '../../../services/product_service_api.dart';
-import '../../../services/product_service_file_local.dart';
 import '../../../models/product_model.dart';
 import '../../../services/event_handler_service.dart'; // Import EventHandlerService
+import '../../../services/product_service_api.dart';
+import '../../../services/product_service_file_local.dart';
+import '../../../di/injection.dart'; // Import for dependency injection setup
 
 class ProductListPage extends StatelessWidget {
-  final ProductServiceApi productServiceApi = ProductServiceApi();
-  final ProductServiceFileLocal productServiceFile = ProductServiceFileLocal();
-  final EventHandlerService eventHandler =
-      EventHandlerService(); // Use EventHandlerService
+  final ProductServiceApi _productServiceApi;
+  final ProductServiceFileLocal _productServiceFile;
+  final EventHandlerService _eventHandler;
+  final bool useApi;
 
-  ProductListPage({super.key});
-
-  // Toggle to choose between API and file-based data fetching
-  final bool useApi =
-      false; // Set to `true` to use API, `false` to use local file
+  // Constructor injection for dependencies
+  ProductListPage({
+    super.key,
+    this.useApi = false, // Default value for `useApi`
+    ProductServiceApi? productServiceApi,
+    ProductServiceFileLocal? productServiceFile,
+    EventHandlerService? eventHandler,
+  })  : _productServiceApi = productServiceApi ?? getIt<ProductServiceApi>(),
+        _productServiceFile =
+            productServiceFile ?? getIt<ProductServiceFileLocal>(),
+        _eventHandler = eventHandler ?? getIt<EventHandlerService>();
 
   @override
   Widget build(BuildContext context) {
@@ -23,19 +30,22 @@ class ProductListPage extends StatelessWidget {
         title: const Text('Products'),
       ),
       body: FutureBuilder<List<Product>>(
-        // Choose data source based on the toggle
         future: useApi
-            ? productServiceApi.fetchProducts()
-            : productServiceFile.fetchProducts(),
+            ? _productServiceApi.fetchProducts()
+            : _productServiceFile.fetchProducts(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
           } else if (snapshot.hasError) {
-            return Center(child: Text('Error: ${snapshot.error}'));
-          } else if (snapshot.hasData) {
+            return Center(
+              child: Text(
+                'Error loading products: ${snapshot.error}',
+                style: const TextStyle(color: Colors.red),
+              ),
+            );
+          } else if (snapshot.hasData && snapshot.data!.isNotEmpty) {
             final products = snapshot.data!;
-            // Log view item list event using EventHandlerService
-            eventHandler.handleEvent("view_item_list", products: products);
+            _eventHandler.handleEvent("view_item_list", products: products);
 
             return ListView.builder(
               itemCount: products.length,
@@ -51,7 +61,9 @@ class ProductListPage extends StatelessWidget {
                     padding: const EdgeInsets.all(8.0),
                     child: ListTile(
                       title: Text(product.itemName),
-                      subtitle: Text('£${product.price}'),
+                      subtitle: Text(
+                        '£${product.price?.toStringAsFixed(2) ?? 'N/A'}', // Null check for price
+                      ),
                       leading: SizedBox(
                         width: 100,
                         height: 100,
@@ -66,9 +78,10 @@ class ProductListPage extends StatelessWidget {
                               ),
                       ),
                       onTap: () {
-                        // Log select item event using EventHandlerService
-                        eventHandler.handleEvent("select_item",
-                            product: product);
+                        _eventHandler.handleEvent(
+                          "select_item",
+                          product: product,
+                        );
                       },
                     ),
                   ),

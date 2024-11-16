@@ -1,8 +1,10 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:test_firebase_app/utils/random_transactionId.dart';
 import '../../models/product_model.dart';
-//import 'package:test_firebase_app/utils/data_response_parser.dart';
+import 'package:injectable/injectable.dart';
 
+//import 'package:test_firebase_app/utils/data_response_parser.dart';
+@lazySingleton
 class GAEcomAnalyticsEvents {
   final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
 

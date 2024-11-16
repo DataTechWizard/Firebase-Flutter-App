@@ -1,7 +1,9 @@
 import 'package:flutter/services.dart' show rootBundle;
 import 'dart:convert';
 import '../models/product_model.dart'; // Adjust this import based on your directory structure
+import 'package:injectable/injectable.dart';
 
+@lazySingleton
 class ProductServiceFileLocal {
   final String filePath = 'lib/data/products.json';
 

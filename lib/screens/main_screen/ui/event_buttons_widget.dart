@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import '../../../services/event_handler_service.dart';
 import 'package:test_firebase_app/screens/plp/ui/product_list_page.dart'; // Import ProductListPage
-//import '../../../models/product_model.dart';
 import '../../../utils/random_product_service.dart'; // Import RandomProductService
+import '../../../di/injection.dart'; // Import for dependency injection setup
 
 class EventButtonsWidget extends StatefulWidget {
   const EventButtonsWidget({super.key});
@@ -12,69 +12,53 @@ class EventButtonsWidget extends StatefulWidget {
 }
 
 class _EventButtonsWidgetState extends State<EventButtonsWidget> {
-  final EventHandlerService _eventHandlerService =
-      EventHandlerService(); // General event handler
-  final RandomProductService _randomProductService =
-      RandomProductService(); // Use RandomProductService
+  // Inject EventHandlerService using get_it
+  final EventHandlerService _eventHandlerService = getIt<EventHandlerService>();
+
+  // Use RandomProductService for generating random products
+  final RandomProductService _randomProductService = RandomProductService();
 
   // Async button handler for analytics events
   Future<void> _onButtonPressed(String eventName) async {
     if (eventName == "view_item_list") {
-      // Navigate to ProductListPage
+      // Navigate to ProductListPage when "view_item_list" is triggered
       Navigator.push(
         context,
         MaterialPageRoute(
           builder: (context) => ProductListPage(),
         ),
       );
-    } else if (eventName == "select_item" ||
-        eventName == "view_item" ||
-        eventName == "add_to_cart" ||
-        eventName == "remove_from_cart" ||
-        eventName == "view_cart" ||
-        eventName == "begin_checkout" ||
-        eventName == "add_shipping_info" ||
-        eventName == "add_payment_info" ||
-        eventName == "purchase") {
-      // Fetch 3 random products
+    } else if ([
+      "select_item",
+      "view_item",
+      "add_to_cart",
+      "remove_from_cart",
+      "view_cart",
+      "begin_checkout",
+      "add_shipping_info",
+      "add_payment_info",
+      "purchase"
+    ].contains(eventName)) {
+      // Handle e-commerce-related events
       try {
+        // Fetch 3 random products
         final products = await _randomProductService.getRandomItems(3);
         if (products.isNotEmpty) {
           final firstProduct =
               products.first; // Example product for single-item events
+          // Dispatch e-commerce events with products
           switch (eventName) {
             case "select_item":
-              await _eventHandlerService.handleEvent(eventName,
-                  product: firstProduct);
-              break;
             case "view_item":
-              await _eventHandlerService.handleEvent(eventName,
-                  product: firstProduct);
-              break;
             case "add_to_cart":
-              await _eventHandlerService.handleEvent(eventName,
-                  product: firstProduct);
-              break;
             case "remove_from_cart":
               await _eventHandlerService.handleEvent(eventName,
                   product: firstProduct);
               break;
             case "view_cart":
-              await _eventHandlerService.handleEvent(eventName,
-                  products: products);
-              break;
             case "begin_checkout":
-              await _eventHandlerService.handleEvent(eventName,
-                  products: products);
-              break;
             case "add_shipping_info":
-              await _eventHandlerService.handleEvent(eventName,
-                  products: products);
-              break;
             case "add_payment_info":
-              await _eventHandlerService.handleEvent(eventName,
-                  products: products);
-              break;
             case "purchase":
               await _eventHandlerService.handleEvent(eventName,
                   products: products);
@@ -89,7 +73,7 @@ class _EventButtonsWidgetState extends State<EventButtonsWidget> {
         print("Error fetching products for event $eventName: $e");
       }
     } else {
-      // Handle non-e-commerce events using the general event handler
+      // Handle non-e-commerce events using EventHandlerService
       await _eventHandlerService.handleEvent(eventName);
     }
   }

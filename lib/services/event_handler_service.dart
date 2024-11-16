@@ -1,13 +1,22 @@
-//lib/services/event_handler_service.dart
 import 'package:test_firebase_app/models/product_model.dart';
 import 'package:test_firebase_app/services/firebase/index.dart';
+import 'package:injectable/injectable.dart';
 
+@injectable
 class EventHandlerService {
-  final GAEcomAnalyticsEvents _ecomAnalytics = GAEcomAnalyticsEvents();
-  final GAScreenAnalyticsEvents _screenAnalytics = GAScreenAnalyticsEvents();
-  final GAJourneyAnalyticsEvents _journeyAnalytics = GAJourneyAnalyticsEvents();
-  final GAErrorAnalyticsEvents _errorAnalytics = GAErrorAnalyticsEvents();
-  final GAUserAnalyticsEvents _userAnalytics = GAUserAnalyticsEvents();
+  final GAEcomAnalyticsEvents _ecomAnalytics;
+  final GAScreenAnalyticsEvents _screenAnalytics;
+  final GAJourneyAnalyticsEvents _journeyAnalytics;
+  final GAErrorAnalyticsEvents _errorAnalytics;
+  final GAUserAnalyticsEvents _userAnalytics;
+
+  EventHandlerService(
+    this._ecomAnalytics,
+    this._screenAnalytics,
+    this._journeyAnalytics,
+    this._errorAnalytics,
+    this._userAnalytics,
+  );
 
   Future<void> handleEvent(String eventName,
       {List<Product>? products, Product? product}) async {
