@@ -1,15 +1,20 @@
-//import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
-//import 'package:test_firebase_app/utils/analytics_utils.dart';
 import '../../../services/product_service_api.dart';
+import '../../../services/product_service_file_local.dart';
 import '../../../models/product_model.dart';
-import '../../../services/analytics_service.dart';
+import '../../../services/event_handler_service.dart'; // Import EventHandlerService
 
 class ProductListPage extends StatelessWidget {
-  final ProductServiceApi productService = ProductServiceApi();
-  final AnalyticsService analyticsService = AnalyticsService();
+  final ProductServiceApi productServiceApi = ProductServiceApi();
+  final ProductServiceFileLocal productServiceFile = ProductServiceFileLocal();
+  final EventHandlerService eventHandler =
+      EventHandlerService(); // Use EventHandlerService
 
   ProductListPage({super.key});
+
+  // Toggle to choose between API and file-based data fetching
+  final bool useApi =
+      false; // Set to `true` to use API, `false` to use local file
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +23,10 @@ class ProductListPage extends StatelessWidget {
         title: const Text('Products'),
       ),
       body: FutureBuilder<List<Product>>(
-        future: productService.fetchProducts(), // Fetch the product data
+        // Choose data source based on the toggle
+        future: useApi
+            ? productServiceApi.fetchProducts()
+            : productServiceFile.fetchProducts(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
@@ -26,13 +34,14 @@ class ProductListPage extends StatelessWidget {
             return Center(child: Text('Error: ${snapshot.error}'));
           } else if (snapshot.hasData) {
             final products = snapshot.data!;
-            analyticsService.logViewItemListEvent(products);
+            // Log view item list event using EventHandlerService
+            eventHandler.handleEvent("view_item_list", products: products);
 
             return ListView.builder(
               itemCount: products.length,
               itemBuilder: (context, index) {
                 final product = products[index];
-                final String imageUrl = product.imageUrl;
+                final String? imageUrl = product.imageUrl;
 
                 return Card(
                   margin:
@@ -44,21 +53,22 @@ class ProductListPage extends StatelessWidget {
                       title: Text(product.itemName),
                       subtitle: Text('£${product.price}'),
                       leading: SizedBox(
-                        width: 100, // Set desired width
-                        height: 100, // Set desired height
-                        child: imageUrl.startsWith('http')
+                        width: 100,
+                        height: 100,
+                        child: (imageUrl != null && imageUrl.startsWith('http'))
                             ? Image.network(
                                 imageUrl,
                                 fit: BoxFit.cover,
                               )
                             : Image.asset(
-                                'assets/default_image.png', // Use relative path
+                                'assets/default_image.png',
                                 fit: BoxFit.cover,
                               ),
                       ),
                       onTap: () {
-                        // Log the select item event
-                        analyticsService.logSelectItemEvent(product);
+                        // Log select item event using EventHandlerService
+                        eventHandler.handleEvent("select_item",
+                            product: product);
                       },
                     ),
                   ),

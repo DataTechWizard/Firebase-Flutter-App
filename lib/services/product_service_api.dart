@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 import '../models/product_model.dart';
 
 class ProductServiceApi {
-  final String apiUrl = 'http://192.168.4.117:8181/products';
+  final String apiUrl = 'http://x.x.x.x:8181/products'; //Can Use Wiremock
 
   Future<List<Product>> fetchProducts() async {
     try {

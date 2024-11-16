@@ -60,6 +60,7 @@ flutter:
   uses-material-design: true
   assets:
     - assets/default_image.png
+    - lib/data/products.json
 
   # To add assets to your application, add an assets section, like this:
   # assets:

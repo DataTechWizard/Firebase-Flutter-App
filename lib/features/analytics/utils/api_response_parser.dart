@@ -28,20 +28,6 @@ Map<String, dynamic> parseCartApiResponse() {
   };
 }
 
-// // Ensure this function uses itemListApiResponse
-// Map<String, dynamic> parseItemListApiResponse() {
-//   final Map<String, dynamic> jsonData =
-//       json.decode(itemListApiResponse); // Uses itemListApiResponse
-//   final List<dynamic> itemsJson = jsonData['items'];
-//   final items =
-//       itemsJson.map((item) => CustomAnalyticsEventItem.fromJson(item)).toList();
-//   return {
-//     'itemListId': jsonData['itemListId'],
-//     'itemListName': jsonData['itemListName'],
-//     'items': items,
-//   };
-// }
-
 // Function to parse the single item API response and return a CustomAnalyticsEventItem
 CustomAnalyticsEventItem parseSingleItemApiResponse() {
   final Map<String, dynamic> jsonData = json.decode(

@@ -4,34 +4,6 @@ import '../models/firebase_item_scoped_data_model.dart';
 class AnalyticsService {
   final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
 
-  // void logViewItemListEvent(FirebaseItemScopedDataModel model) {
-  //   _analytics.logEvent('view_item_list', <String, dynamic>{
-  //     'itemListId': model.itemListId,
-  //    'section': model.section,
-  //     'page': model.page,
-  //   });
-  // }
-// Log a view_item_list event
-  // Future<void> logViewItemListEvent(Map<String, dynamic> apiResponse) async {
-  //   final List<dynamic>? itemsData = apiResponse['items'];
-  //   if (itemsData == null) throw Exception("Missing 'items' data");
-
-  //   final String itemListId = apiResponse['itemListId'] ?? 'unknown';
-  //   final String itemListName = apiResponse['itemListName'] ?? 'unknown';
-  //   print(itemsData.runtimeType); // Debug statement
-  //   print(itemsData);
-  //   final List<CustomAnalyticsEventItem> customItems =
-  //       itemsData.cast<CustomAnalyticsEventItem>();
-  //   final List<AnalyticsEventItem> analyticsItems =
-  //       customItems.map((item) => item).toList();
-
-  //   await _analytics.logViewItemList(
-  //     itemListId: itemListId,
-  //     itemListName: itemListName,
-  //     items: analyticsItems,
-  //   );
-  // }
-
   Future<void> logSelectItemEvent(CustomAnalyticsEventItem item) async {
     // Log a single view_item event
     await _analytics.logSelectItem(
