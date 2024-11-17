@@ -14,6 +14,5 @@ class GAScreenAnalyticsEvents {
         'timestamp': DateTime.now().toIso8601String(),
       },
     );
-    print("Screen view logged to Firebase for $screenName");
   }
 }

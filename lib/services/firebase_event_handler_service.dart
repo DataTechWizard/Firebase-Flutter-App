@@ -3,14 +3,14 @@ import 'package:test_firebase_app/services/firebase/index.dart';
 import 'package:injectable/injectable.dart';
 
 @injectable
-class EventHandlerService {
+class FirebaseEventHandlerService {
   final GAEcomAnalyticsEvents _ecomAnalytics;
   final GAScreenAnalyticsEvents _screenAnalytics;
   final GAJourneyAnalyticsEvents _journeyAnalytics;
   final GAErrorAnalyticsEvents _errorAnalytics;
   final GAUserAnalyticsEvents _userAnalytics;
 
-  EventHandlerService(
+  FirebaseEventHandlerService(
     this._ecomAnalytics,
     this._screenAnalytics,
     this._journeyAnalytics,

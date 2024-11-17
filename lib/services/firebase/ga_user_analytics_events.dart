@@ -7,7 +7,6 @@ class GAUserAnalyticsEvents {
 
   Future<void> setUserId(String userId) async {
     await _analytics.setUserId(id: userId);
-    print("User ID set to $userId");
   }
 
   Future<void> setUserProperty(String name, String value) async {

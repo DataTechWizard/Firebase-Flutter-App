@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../services/event_handler_service.dart';
+import '../../../services/firebase_event_handler_service.dart';
 import 'package:test_firebase_app/screens/plp/ui/product_list_page.dart'; // Import ProductListPage
 import '../../../utils/random_product_service.dart'; // Import RandomProductService
 import '../../../di/injection.dart'; // Import for dependency injection setup
@@ -12,8 +12,9 @@ class EventButtonsWidget extends StatefulWidget {
 }
 
 class _EventButtonsWidgetState extends State<EventButtonsWidget> {
-  // Inject EventHandlerService using get_it
-  final EventHandlerService _eventHandlerService = getIt<EventHandlerService>();
+  // Inject FirebaseEventHandlerService using get_it
+  final FirebaseEventHandlerService _firebaseEventHandlerService =
+      getIt<FirebaseEventHandlerService>();
 
   // Use RandomProductService for generating random products
   final RandomProductService _randomProductService = RandomProductService();
@@ -52,7 +53,7 @@ class _EventButtonsWidgetState extends State<EventButtonsWidget> {
             case "view_item":
             case "add_to_cart":
             case "remove_from_cart":
-              await _eventHandlerService.handleEvent(eventName,
+              await _firebaseEventHandlerService.handleEvent(eventName,
                   product: firstProduct);
               break;
             case "view_cart":
@@ -60,7 +61,7 @@ class _EventButtonsWidgetState extends State<EventButtonsWidget> {
             case "add_shipping_info":
             case "add_payment_info":
             case "purchase":
-              await _eventHandlerService.handleEvent(eventName,
+              await _firebaseEventHandlerService.handleEvent(eventName,
                   products: products);
               break;
             default:
@@ -73,8 +74,8 @@ class _EventButtonsWidgetState extends State<EventButtonsWidget> {
         print("Error fetching products for event $eventName: $e");
       }
     } else {
-      // Handle non-e-commerce events using EventHandlerService
-      await _eventHandlerService.handleEvent(eventName);
+      // Handle non-e-commerce events using FirebaseEventHandlerService
+      await _firebaseEventHandlerService.handleEvent(eventName);
     }
   }
 

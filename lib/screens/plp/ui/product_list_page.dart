@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../models/product_model.dart';
-import '../../../services/event_handler_service.dart'; // Import EventHandlerService
+import '../../../services/firebase_event_handler_service.dart'; // Import FirebaseEventHandlerService
 import '../../../services/product_service_api.dart';
 import '../../../services/product_service_file_local.dart';
 import '../../../di/injection.dart'; // Import for dependency injection setup
@@ -8,7 +8,7 @@ import '../../../di/injection.dart'; // Import for dependency injection setup
 class ProductListPage extends StatelessWidget {
   final ProductServiceApi _productServiceApi;
   final ProductServiceFileLocal _productServiceFile;
-  final EventHandlerService _eventHandler;
+  final FirebaseEventHandlerService _eventHandler;
   final bool useApi;
 
   // Constructor injection for dependencies
@@ -17,11 +17,11 @@ class ProductListPage extends StatelessWidget {
     this.useApi = false, // Default value for `useApi`
     ProductServiceApi? productServiceApi,
     ProductServiceFileLocal? productServiceFile,
-    EventHandlerService? eventHandler,
+    FirebaseEventHandlerService? eventHandler,
   })  : _productServiceApi = productServiceApi ?? getIt<ProductServiceApi>(),
         _productServiceFile =
             productServiceFile ?? getIt<ProductServiceFileLocal>(),
-        _eventHandler = eventHandler ?? getIt<EventHandlerService>();
+        _eventHandler = eventHandler ?? getIt<FirebaseEventHandlerService>();
 
   @override
   Widget build(BuildContext context) {

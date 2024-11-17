@@ -13,6 +13,5 @@ class GAErrorAnalyticsEvents {
         'timestamp': DateTime.now().toIso8601String(),
       },
     );
-    print("error_event logged to Firebase");
   }
 }

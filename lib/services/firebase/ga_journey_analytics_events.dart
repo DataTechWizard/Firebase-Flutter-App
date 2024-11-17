@@ -17,6 +17,5 @@ class GAJourneyAnalyticsEvents {
         'journey_attribute2': 'promotion: WinterSale2024',
       },
     );
-    print("journey_event logged to Firebase");
   }
 }
