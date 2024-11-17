@@ -1,4 +1,4 @@
-# Test Firebase App
+# Firebase Flutter App
 
 A Flutter application demonstrating integration with Firebase Analytics and various service features, using Dependency Injection for clean architecture and enhanced maintainability.
 

@@ -1,5 +1,5 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
-import 'package:test_firebase_app/utils/random_transactionId.dart';
+import 'package:firebase_flutter_app/utils/random_transactionId.dart';
 import '../../models/product_model.dart';
 import 'package:injectable/injectable.dart';
 

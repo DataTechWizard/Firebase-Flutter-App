@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../services/firebase_event_handler_service.dart';
-import 'package:test_firebase_app/screens/plp/ui/product_list_page.dart'; // Import ProductListPage
+import 'package:firebase_flutter_app/screens/plp/ui/product_list_page.dart'; // Import ProductListPage
 import '../../../utils/random_product_service.dart'; // Import RandomProductService
 import '../../../di/injection.dart'; // Import for dependency injection setup
 

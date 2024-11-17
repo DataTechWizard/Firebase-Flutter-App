@@ -1,5 +1,5 @@
-import 'package:test_firebase_app/models/product_model.dart';
-import 'package:test_firebase_app/services/firebase/index.dart';
+import 'package:firebase_flutter_app/models/product_model.dart';
+import 'package:firebase_flutter_app/services/firebase/index.dart';
 import 'package:injectable/injectable.dart';
 
 @injectable

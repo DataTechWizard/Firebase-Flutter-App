@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'screens/main_screen/ui/event_buttons_widget.dart'; // Import the refactored widget
-import 'package:test_firebase_app/di/injection.dart';
+import 'package:firebase_flutter_app/di/injection.dart';
 
 void main() async {
   configureDependencies();
