@@ -75,6 +75,17 @@ lib
 
 Feel free to open issues or submit PRs to enhance this project.
 
+## Support
+
+If you need help with using this project, have any questions, or would like to report an issue, please use one of the following ways to get in touch:
+
+- **Report an Issue**: If you encounter a bug, want to request a feature, or have suggestions, feel free to [open an issue](https://github.comgithub.com/DataTechWizard/Firebase-Flutter-App/issues).
+- **Contact Us**: For any general queries or further assistance, you can reach us at [support@ecomanalytica.co.uk](mailto:support@ecomanalytica.co.uk).
+- **Community Discussions**: Join the [GitHub Discussions](https://github.com/DataTechWizard/Firebase-Flutter-App/discussions) to connect with other users, ask questions, and share ideas.
+- **Contributing**: If you want to contribute to this project, please check out our [Contributing Guide](CONTRIBUTING.md) for more information on how you can get involved.
+
+We value your feedback and appreciate your involvement!
+
 ## License
 
 This project is licensed under the [MIT License](LICENSE).
