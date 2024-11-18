@@ -21,6 +21,10 @@ import 'package:firebase_flutter_app/services/firebase/ga_user_analytics_events.
 import 'package:firebase_flutter_app/services/firebase/index.dart' as _i720;
 import 'package:firebase_flutter_app/services/firebase_event_handler_service.dart'
     as _i398;
+import 'package:firebase_flutter_app/services/logger/logger_service.dart'
+    as _i467;
+import 'package:firebase_flutter_app/services/logger/logger_service_impl.dart'
+    as _i34;
 import 'package:firebase_flutter_app/services/product_service_api.dart'
     as _i283;
 import 'package:firebase_flutter_app/services/product_service_file_local.dart'
@@ -41,17 +45,18 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.lazySingleton<_i475.ProductServiceFileLocal>(
         () => _i475.ProductServiceFileLocal());
-    gh.lazySingleton<_i352.GAEcomAnalyticsEvents>(
-        () => _i352.GAEcomAnalyticsEvents());
-    gh.lazySingleton<_i850.GAJourneyAnalyticsEvents>(
-        () => _i850.GAJourneyAnalyticsEvents());
-    gh.lazySingleton<_i326.GAScreenAnalyticsEvents>(
-        () => _i326.GAScreenAnalyticsEvents());
-    gh.lazySingleton<_i484.GAErrorAnalyticsEvents>(
-        () => _i484.GAErrorAnalyticsEvents());
-    gh.lazySingleton<_i290.GAUserAnalyticsEvents>(
-        () => _i290.GAUserAnalyticsEvents());
     gh.lazySingleton<_i283.ProductServiceApi>(() => _i283.ProductServiceApi());
+    gh.singleton<_i467.LoggerService>(() => _i34.LoggerServiceImpl());
+    gh.lazySingleton<_i352.GAEcomAnalyticsEvents>(
+        () => _i352.GAEcomAnalyticsEvents(gh<_i467.LoggerService>()));
+    gh.lazySingleton<_i850.GAJourneyAnalyticsEvents>(
+        () => _i850.GAJourneyAnalyticsEvents(gh<_i467.LoggerService>()));
+    gh.lazySingleton<_i326.GAScreenAnalyticsEvents>(
+        () => _i326.GAScreenAnalyticsEvents(gh<_i467.LoggerService>()));
+    gh.lazySingleton<_i484.GAErrorAnalyticsEvents>(
+        () => _i484.GAErrorAnalyticsEvents(gh<_i467.LoggerService>()));
+    gh.lazySingleton<_i290.GAUserAnalyticsEvents>(
+        () => _i290.GAUserAnalyticsEvents(gh<_i467.LoggerService>()));
     gh.factory<_i398.FirebaseEventHandlerService>(
         () => _i398.FirebaseEventHandlerService(
               gh<_i720.GAEcomAnalyticsEvents>(),
