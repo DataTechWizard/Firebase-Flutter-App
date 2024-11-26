@@ -1,3 +1,5 @@
+// For details on handling multiple items in Firebase Analytics, refer to
+// docs/multi_item_analytics_instructions.md
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_flutter_app/models/custom_event_item.dart';
 import 'package:firebase_flutter_app/utils/random_transactionId.dart';
